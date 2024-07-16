@@ -5,8 +5,7 @@ import com.telusko.simpleWebApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,27 @@ public class ProductController {
     @GetMapping("/products")
     public List<Product> getProducts(){
         return productService.getProducts();
+    }
+
+    @PostMapping("/products")
+    public Product addProduct(@RequestBody Product product){
+        System.out.println(product);
+        productService.saveProduct(product);
+        return product;
+    }
+
+    @GetMapping("/product/{id}")
+    public Product getProduct(@PathVariable int id){
+        return productService.getProduct(id);
+    }
+
+    @PutMapping("/product")
+    public Product updateProduct(@RequestBody Product product){
+        return productService.updateProduct(product);
+    }
+
+    @DeleteMapping("/product/{id}")
+    public void deleteProduct(@PathVariable int id){
+        productService.deleteProduct(id);
     }
 }
